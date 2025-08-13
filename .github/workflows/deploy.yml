@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
-  workflow-dispatch:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -38,11 +38,10 @@ jobs:
           touch "$OUT/.nojekyll"
           # Custom domain CNAME
           echo "niranjanghising.com.np" > "$OUT/CNAME"
-          echo "out_dir=$OUT" >> $GITHUB_ENV
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ env.out_dir }}
+          path: ./out
 
   deploy:
     environment:
