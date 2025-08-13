@@ -1,0 +1,561 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Clean design system matching X.com and the example dark mode */
+@theme inline {
+  --font-sans: var(--font-inter);
+}
+
+:root {
+  /* Light Mode - X.com style with high contrast */
+  --background: #ffffff;
+  --foreground: #0f1419;
+  --card: #ffffff;
+  --card-foreground: #0f1419;
+  --popover: #ffffff;
+  --popover-foreground: #0f1419;
+  --primary: #3cb8e9; /* changed from #1d9bf0 to sky blue */
+  --primary-foreground: #ffffff;
+  --secondary: #f7f9fa;
+  --secondary-foreground: #0f1419;
+  --muted: #f7f9fa;
+  --muted-foreground: #536471;
+  --accent: #3cb8e9; /* changed from #1d9bf0 to sky blue */
+  --accent-foreground: #ffffff;
+  --destructive: #f4212e;
+  --destructive-foreground: #ffffff;
+  --border: #eff3f4;
+  --input: #eff3f4;
+  --ring: #3cb8e9; /* changed */
+  --chart-1: #3cb8e9; /* changed */
+  --chart-2: #00ba7c;
+  --chart-3: #794bc4;
+  --chart-4: #f91880;
+  --chart-5: #ff7a00;
+  --radius: 0.625rem;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0f1419;
+  --sidebar-primary: #3cb8e9; /* changed */
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f7f9fa;
+  --sidebar-accent-foreground: #0f1419;
+  --sidebar-border: #333333;
+  --sidebar-ring: #3cb8e9; /* changed */
+}
+
+[data-theme="dark"] {
+  /* Dark Mode - Pure black background like the example image */
+  --background: #000000;
+  --foreground: #ffffff;
+  --card: #1a1a1a;
+  --card-foreground: #ffffff;
+  --popover: #1a1a1a;
+  --popover-foreground: #ffffff;
+  --primary: #3cb8e9; /* changed */
+  --primary-foreground: #ffffff;
+  --secondary: #2a2a2a;
+  --secondary-foreground: #ffffff;
+  --muted: #2a2a2a;
+  --muted-foreground: #a0a0a0;
+  --accent: #3cb8e9; /* changed */
+  --accent-foreground: #0f1419; /* improved contrast on light sky blue */
+  --destructive: #f4212e;
+  --destructive-foreground: #ffffff;
+  --border: #333333;
+  --input: #2a2a2a;
+  --ring: #3cb8e9; /* changed */
+  --chart-1: #3cb8e9; /* changed */
+  --chart-2: #00ba7c;
+  --chart-3: #794bc4;
+  --chart-4: #f91880;
+  --chart-5: #ff7a00;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans transition-colors duration-300;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    color: #0f1419;
+    background-color: #ffffff;
+  }
+}
+
+/* Clean, minimal base styles */
+html {
+  scroll-behavior: smooth;
+}
+
+/* High contrast focus styles */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 16px;
+  background: var(--accent);
+  color: var(--accent-foreground);
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 1000;
+  font-weight: 500;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+/* Enhanced button styles with proper contrast */
+.btn-primary {
+  background-color: #3cb8e9 !important; /* changed */
+  color: #0f1419 !important; /* better contrast on light sky blue */
+  border: 1px solid #3cb8e9 !important; /* changed */
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background-color: #3cb8e9 !important; /* darker hover variant */
+  opacity: 0.95;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(103, 180, 210, 0.4); /* adjusted shadow tint */
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: inherit !important;
+  border: 1px solid var(--border);
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.btn-outline:hover {
+  background-color: var(--muted);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Enhanced project card styles matching the example */
+.project-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.project-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] .project-card {
+  box-shadow: 0 1px 3px rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .project-card:hover {
+  box-shadow: 0 8px 25px rgba(29, 155, 240, 0.2);
+}
+
+/* Enhanced skills grid matching the example */
+.skill-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.skill-item:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] .skill-item {
+  box-shadow: 0 1px 3px rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .skill-item:hover {
+  box-shadow: 0 4px 12px rgba(29, 155, 240, 0.2);
+}
+
+/* Enhanced progress bars */
+.progress-bar {
+  background: var(--muted);
+  border-radius: var(--radius);
+  overflow: hidden;
+  height: 8px;
+}
+
+.progress-fill {
+  background: linear-gradient(90deg, var(--accent), var(--primary));
+  height: 100%;
+  transition: width 0.8s ease;
+  position: relative;
+}
+
+.progress-fill::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Enhanced navigation styles */
+.nav-link {
+  color: var(--foreground);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: var(--accent);
+}
+
+.nav-link.active {
+  color: var(--accent);
+}
+
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+}
+
+/* Enhanced typography with guaranteed visibility */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  color: #0f1419 !important;
+}
+
+/* Force proper text colors for all themes */
+.text-foreground {
+  color: #0f1419 !important;
+}
+
+.text-accent {
+  color: #87ceeb !important; /* changed */
+}
+
+.text-muted-foreground {
+  color: #536471 !important;
+}
+
+.text-card-foreground {
+  color: var(--card-foreground) !important;
+}
+
+/* Background utilities with proper opacity */
+.bg-background {
+  background-color: #ffffff !important;
+}
+
+[data-theme="dark"] .bg-background {
+  background-color: #000000 !important;
+}
+
+.bg-card {
+  background-color: #ffffff !important;
+}
+
+[data-theme="dark"] .bg-card {
+  background-color: #1a1a1a !important;
+}
+
+.bg-accent\/5 {
+  background-color: color-mix(in srgb, var(--accent) 5%, transparent) !important;
+}
+
+.bg-accent\/10 {
+  background-color: color-mix(in srgb, var(--accent) 10%, transparent) !important;
+}
+
+.bg-muted {
+  background-color: var(--muted) !important;
+}
+
+.bg-muted\/30 {
+  background-color: color-mix(in srgb, var(--muted) 30%, transparent) !important;
+}
+
+.bg-muted\/50 {
+  background-color: color-mix(in srgb, var(--muted) 50%, transparent) !important;
+}
+
+/* Border utilities */
+.border-border {
+  border-color: var(--border) !important;
+}
+
+.border-accent\/10 {
+  border-color: color-mix(in srgb, var(--accent) 10%, transparent) !important;
+}
+
+.border-accent\/20 {
+  border-color: color-mix(in srgb, var(--accent) 20%, transparent) !important;
+}
+
+.border-accent\/30 {
+  border-color: color-mix(in srgb, var(--accent) 30%, transparent) !important;
+}
+
+/* Chart visibility fixes for dark mode */
+[data-theme="dark"] .recharts-cartesian-grid line {
+  stroke: var(--border) !important;
+}
+
+[data-theme="dark"] .recharts-text {
+  fill: var(--muted-foreground) !important;
+}
+
+[data-theme="dark"] .recharts-legend-item-text {
+  color: var(--foreground) !important;
+}
+
+/* Smooth theme transitions */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
+}
+
+/* Ensure all text is visible in both themes */
+p,
+span,
+div,
+label {
+  color: inherit;
+}
+
+/* Dark mode specific overrides for maximum visibility */
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .text-foreground {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .text-muted-foreground {
+  color: #a0a0a0 !important;
+}
+
+[data-theme="dark"] .bg-gradient-to-br {
+  background: var(--background) !important;
+}
+
+/* Force maximum text visibility - Override everything */
+* {
+  color: inherit !important;
+}
+
+/* Light mode - force dark text */
+:root h1,
+:root h2,
+:root h3,
+:root h4,
+:root h5,
+:root h6,
+:root p,
+:root span,
+:root div:not(.bg-accent):not(.bg-primary) {
+  color: #0f1419 !important;
+}
+
+/* Dark mode - force white text */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6,
+[data-theme="dark"] p,
+[data-theme="dark"] span,
+[data-theme="dark"] div:not(.bg-accent):not(.bg-primary) {
+  color: #ffffff !important;
+}
+
+/* Force accent colors to be visible */
+.text-accent,
+[class*="text-accent"] {
+  color: #3cb8e9 !important; /* changed */
+}
+
+/* Force muted text to be visible */
+.text-muted-foreground,
+[class*="muted-foreground"] {
+  color: #536471 !important;
+}
+
+[data-theme="dark"] .text-muted-foreground,
+[data-theme="dark"] [class*="muted-foreground"] {
+  color: #a0a0a0 !important;
+}
+
+/* Force all backgrounds to be proper */
+.bg-background {
+  background-color: #ffffff !important;
+}
+
+[data-theme="dark"] .bg-background {
+  background-color: #000000 !important;
+}
+
+.bg-card {
+  background-color: #ffffff !important;
+}
+
+[data-theme="dark"] .bg-card {
+  background-color: #1a1a1a !important;
+}
+
+/* Force button text to be visible */
+/* Refined: remove global force inherit so variant foreground utilities work */
+button[data-slot="button"].bg-accent,
+button[data-slot="button"].bg-primary {
+  color: var(--accent-foreground) !important;
+}
+
+button[data-slot="button"].bg-primary {
+  color: var(--primary-foreground) !important;
+}
+
+/* Ensure outline/ghost preserve intended text colors */
+button[data-slot="button"].text-accent-foreground { color: var(--accent-foreground) !important; }
+
+/* Force all sections to have proper backgrounds */
+section {
+  background-color: var(--background) !important;
+}
+
+/* Force main content area */
+main {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+/* Fallback styles to ensure text is always visible */
+[data-theme="dark"] body {
+  color: #ffffff;
+  background-color: #000000;
+}
+
+/* Force text visibility for critical elements */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+div {
+  color: inherit;
+}
+
+/* Ensure buttons are always visible */
+button {
+  color: inherit;
+}
+
+/* Force theme-aware text colors */
+.text-foreground {
+  color: var(--foreground) !important;
+}
+
+.text-muted-foreground {
+  color: var(--muted-foreground) !important;
+}
+
+.text-accent {
+  color: var(--accent) !important;
+}
+
+.bg-background {
+  background-color: var(--background) !important;
+}
+
+.bg-card {
+  background-color: var(--card) !important;
+}
+
+/* Dark mode overrides */
+[data-theme="dark"] .text-foreground {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .text-muted-foreground {
+  color: #a0a0a0 !important;
+}
+
+[data-theme="dark"] .text-accent {
+  color: #3cb8e9 !important; /* changed */
+}
+
+[data-theme="dark"] .bg-background {
+  background-color: #000000 !important;
+}
+
+[data-theme="dark"] .bg-card {
+  background-color: #1a1a1a !important;
+}
+
+/* Delegating global styles to styles/globals.css to prevent duplicate / conflicting overrides */
+@import "../styles/globals.css";
