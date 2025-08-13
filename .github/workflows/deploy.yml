@@ -1,0 +1,55 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow-dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Prepare publish directory
+        shell: bash
+        run: |
+          OUT="out"
+          if [ ! -d "$OUT" ]; then echo "No 'out' directory found after build"; ls -la; exit 1; fi
+          # SPA 404 fallback & disable Jekyll
+          if [ -f "$OUT/index.html" ] && [ ! -f "$OUT/404.html" ]; then cp "$OUT/index.html" "$OUT/404.html"; fi
+          touch "$OUT/.nojekyll"
+          # Custom domain CNAME
+          echo "niranjanghising.com.np" > "$OUT/CNAME"
+          echo "out_dir=$OUT" >> $GITHUB_ENV
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ env.out_dir }}
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
